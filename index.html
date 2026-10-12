@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Gacha Pesan</title>
+  <meta name="description" content="Sembunyikan pesan rahasia di dalam mesin gacha, lalu kirim lewat link. Tanpa akun, tanpa server.">
+  <meta property="og:title" content="Gacha Pesan">
+  <meta property="og:description" content="Ada pesan rahasia buat kamu di dalam mesin gacha ini 🎰">
+  <meta name="theme-color" content="#dbeaf3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- ========== MODE PEMBUAT ========== -->
+    <section id="maker" hidden>
+      <p class="eyebrow">Gacha Pesan</p>
+      <h1>Bikin gacha buat dia</h1>
+      <p class="sub">Tulis pesanmu, dapatkan link, kirim. Dia tinggal putar tuasnya untuk buka pesan rahasia.</p>
+
+      <form id="form" class="card" autocomplete="off">
+        <label>Untuk siapa?
+          <input id="to" maxlength="30" placeholder="contoh: Sayang">
+        </label>
+        <label>Dari siapa?
+          <input id="from" maxlength="30" placeholder="contoh: Aku">
+        </label>
+        <label>Pesan rahasia
+          <textarea id="msg" rows="6" maxlength="1200" placeholder="Malam ini kita makan di tempat favoritmu ya 🍜&#10;&#10;Kamu orang paling sabar yang pernah aku kenal."></textarea>
+          <small>Tip: pisahkan beberapa pesan dengan <b>baris kosong</b>, tiap putaran dapat pesan yang berbeda.</small>
+        </label>
+        <p id="err" class="err" hidden></p>
+        <button class="btn primary" type="submit">Buat link gacha</button>
+      </form>
+
+      <div id="result" class="card" hidden>
+        <p class="eyebrow green">Link siap dikirim</p>
+        <input id="link" readonly>
+        <div class="row">
+          <button id="copy" class="btn">Salin</button>
+          <a id="wa" class="btn" target="_blank" rel="noopener">WhatsApp</a>
+          <button id="share" class="btn" hidden>Bagikan</button>
+        </div>
+        <a id="preview" class="btn ghost">Coba dulu →</a>
+        <small>Pesan disimpan di dalam link itu sendiri, bukan di server mana pun.</small>
+      </div>
+    </section>
+
+    <!-- ========== MODE PENERIMA ========== -->
+    <section id="player" hidden>
+      <p class="eyebrow">Gacha Pesan</p>
+      <h1 id="title">Gacha buat kamu</h1>
+
+      <div class="stage">
+        <svg id="machine" viewBox="0 0 300 400" aria-hidden="true">
+          <defs>
+            <clipPath id="glass"><rect x="52" y="88" width="196" height="144" rx="12"/></clipPath>
+          </defs>
+          <!-- tutup atas -->
+          <rect x="28" y="18" width="244" height="42" rx="16" class="red"/>
+          <rect x="40" y="56" width="220" height="32" class="cream"/>
+          <text x="150" y="78" class="label">✦ GACHA ✦</text>
+          <!-- kaca -->
+          <rect x="50" y="86" width="200" height="148" rx="14" class="glass"/>
+          <g clip-path="url(#glass)">
+            <g id="caps"></g>
+          </g>
+          <rect x="50" y="86" width="200" height="148" rx="14" class="frame"/>
+          <path d="M70 100 q8 -6 20 -4" class="shine"/>
+          <!-- badan bawah -->
+          <rect x="40" y="232" width="220" height="136" rx="10" class="cream"/>
+          <rect x="62" y="248" width="44" height="18" rx="4" class="tag"/>
+          <text x="84" y="261" class="tagtxt">¥100</text>
+          <!-- tuas -->
+          <circle cx="110" cy="312" r="34" class="knob-base"/>
+          <g id="knob">
+            <circle cx="110" cy="312" r="26" class="knob"/>
+            <rect x="104" y="288" width="12" height="48" rx="6" class="knob-bar"/>
+          </g>
+          <!-- lubang keluar -->
+          <rect x="168" y="290" width="74" height="56" rx="10" class="chute"/>
+          <path d="M174 296 h62 v14 h-62 z" class="flap"/>
+          <!-- alas -->
+          <rect x="28" y="362" width="244" height="24" rx="9" class="red"/>
+        </svg>
+
+        <button id="prize" class="capsule" hidden aria-label="Buka kapsul">
+          <span class="half top"></span><span class="half bot"></span>
+        </button>
+      </div>
+
+      <p id="hint" class="hint">Putar tuasnya 👆</p>
+
+      <div class="row center">
+        <button id="sound" class="btn small" aria-pressed="true">🔊 Suara</button>
+        <a id="makeOwn" class="btn small ghost">Bikin punyamu</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== POPUP PESAN ========== -->
+  <div id="modal" class="modal" hidden>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+      <p id="mtitle" class="eyebrow green">Kamu dapat pesan rahasia</p>
+      <p id="mtext" class="mtext"></p>
+      <p id="mfrom" class="mfrom"></p>
+      <div class="row">
+        <button id="again" class="btn">Gacha lagi</button>
+        <button id="close" class="btn primary">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
